@@ -21,20 +21,20 @@ export default defineConfig(({ mode }) => {
     },
     // `server` and `preview` apply only to `vite` / `vite preview`.
     // `vite build` (Vercel) ignores them.
-    server: {
-      host: "127.0.0.1",
-      port: 8000, // must differ from the Django port the proxy points at
-      strictPort: true,
-      // proxy: {
-      //   "/api": { target: apiTarget, changeOrigin: true },
-      //   "/ws": { target: apiTarget, ws: true, changeOrigin: true },
-      // },
-    },
-    preview: {
-      host: "127.0.0.1",
-      port: 8000,
-      strictPort: true,
-    },
+    // server: {
+    //   host: "127.0.0.1",
+    //   port: 8000, // must differ from the Django port the proxy points at
+    //   strictPort: true,
+    //   // proxy: {
+    //   //   "/api": { target: apiTarget, changeOrigin: true },
+    //   //   "/ws": { target: apiTarget, ws: true, changeOrigin: true },
+    //   // },
+    // },
+    // preview: {
+    //   host: "127.0.0.1",
+    //   port: 8000,
+    //   strictPort: true,
+    // },
     build: {
       // Don't ship source maps publicly: they expose the full source.
       // If you add Sentry later, use "hidden" and upload the maps in CI, then delete them from dist.
