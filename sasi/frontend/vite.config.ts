@@ -23,16 +23,16 @@ export default defineConfig(({ mode }) => {
     // `vite build` (Vercel) ignores them.
     server: {
       host: "127.0.0.1",
-      port: 8743, // must differ from the Django port the proxy points at
+      port: 8000, // must differ from the Django port the proxy points at
       strictPort: true,
-      proxy: {
-        "/api": { target: apiTarget, changeOrigin: true },
-        "/ws": { target: apiTarget, ws: true, changeOrigin: true },
-      },
+      // proxy: {
+      //   "/api": { target: apiTarget, changeOrigin: true },
+      //   "/ws": { target: apiTarget, ws: true, changeOrigin: true },
+      // },
     },
     preview: {
       host: "127.0.0.1",
-      port: 8743,
+      port: 8000,
       strictPort: true,
     },
     build: {
