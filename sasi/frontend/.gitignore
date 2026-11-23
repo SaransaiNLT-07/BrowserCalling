@@ -1,0 +1,42 @@
+# =============================================================================
+# frontend/ (Vite + React + TypeScript)
+# Shared rules (OS, IDE, logs, secrets) live in the root .gitignore.
+# This file stays self-contained for the frontend's own needs.
+# =============================================================================
+
+# Dependencies
+node_modules/
+
+# Build output (the Docker image builds it; source maps must not be public)
+/dist/
+/dist-ssr/
+*.map
+
+# Vite caches
+.vite/
+.vite-temp/
+vite.config.*.timestamp-*
+
+# Environment: VITE_* values are baked into the public bundle.
+# Commit only .env.example, and never put secrets in any VITE_ variable.
+.env
+.env.*
+*.local
+!.env.example
+
+# TypeScript / lint caches
+*.tsbuildinfo
+.eslintcache
+
+# Tests
+/coverage/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

@@ -1,0 +1,175 @@
+# =============================================================================
+# Root .gitignore: rules shared by every app, plus the Django backend.
+# frontend/ and mobile/ also have their own .gitignore files.
+#
+# A pattern with no leading "/" matches at any depth.
+# A pattern with a leading "/" is anchored to this repo root.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Secrets & environment files
+# Never commit real credentials. Commit only *.example templates.
+# -----------------------------------------------------------------------------
+.env
+.env.*
+*.env
+!.env.example
+!*.env.example
+
+# Keys, certificates, keystores (TLS, TURN, JWT signing, mobile signing)
+*.pem
+*.key
+*.crt
+*.p8
+*.p12
+*.pfx
+*.jks
+*.keystore
+!debug.keystore
+secrets/
+credentials.json
+service-account*.json
+
+
+# -----------------------------------------------------------------------------
+# Python / Django (backend/)
+# -----------------------------------------------------------------------------
+# Byte-code & build output
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+*.egg-info/
+.eggs/
+wheels/
+pip-wheel-metadata/
+
+# Virtual environments (both the repo root venv/ and backend/.venv)
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# Django runtime output
+/backend/staticfiles/
+/backend/media/
+/backend/static_collected/
+*.sqlite3
+*.sqlite3-journal
+db.sqlite3*
+
+# Test, coverage & tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+junit*.xml
+
+# Profiling
+*.prof
+*.lprof
+
+
+# -----------------------------------------------------------------------------
+# Node / JavaScript (shared by frontend/ and mobile/)
+# -----------------------------------------------------------------------------
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+.pnp.*
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+coverage/
+.nyc_output/
+
+# Build output
+dist/
+dist-ssr/
+web-build/
+*.map
+
+# Package-manager logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# -----------------------------------------------------------------------------
+# Docker & local infrastructure data
+# -----------------------------------------------------------------------------
+docker-compose.override.yml
+.docker-data/
+dump.rdb
+*.rdb
+*.aof
+pgdata/
+
+
+# -----------------------------------------------------------------------------
+# Logs & temp files
+# -----------------------------------------------------------------------------
+logs/
+*.log
+*.pid
+*.seed
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+tmp/
+.cache/
+
+
+# -----------------------------------------------------------------------------
+# Editors & IDEs
+# -----------------------------------------------------------------------------
+# VS Code: share team settings, ignore personal state
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+*.code-workspace
+.history/
+
+# JetBrains (PyCharm / WebStorm)
+.idea/
+*.iml
+
+# AI / agent tooling
+.cursor/
+agent-tools/
+
+
+# -----------------------------------------------------------------------------
+# Operating systems
+# -----------------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
