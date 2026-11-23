@@ -41,9 +41,9 @@ npm install
 npm run dev
 ```
 
-The React app is served at `http://127.0.0.1:8743`. API and socket URLs come from `frontend/.env`.
+The React app is served at `http://127.0.0.1:5173`. API and socket URLs come from `frontend/.env`.
 
-The Expo client still runs on `http://127.0.0.1:8742`:
+The Expo client still runs on `http://127.0.0.1:8081`:
 
 ```bash
 cd mobile
@@ -65,7 +65,7 @@ Docker Compose can start Postgres, Redis, and the API:
 docker compose up --build
 ```
 
-The API container overrides `POSTGRES_HOST` and `REDIS_URL`. Run migrations inside the container before the first request. The `web` service serves the React build at `http://127.0.0.1:8743` and proxies `/api` and `/ws` to Django.
+The API container overrides `POSTGRES_HOST` and `REDIS_URL`. Run migrations inside the container before the first request. The `web` service serves the React build at `http://127.0.0.1:5173` and proxies `/api` and `/ws` to Django.
 
 ## Tests
 

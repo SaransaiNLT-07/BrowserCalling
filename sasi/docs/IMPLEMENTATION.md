@@ -209,7 +209,7 @@ Ranked by impact. File references are relative to the project root.
 | H4 | `call-coordinator.ts` | `onAnswer`, `onIce`, `onOffer` are fired with `void` and have no `try/catch`; errors from `setRemoteDescription` / `addIceCandidate` become unhandled rejections and the UI stays in "connecting". | Silent stuck calls. | Wrap in try/catch, log, and call `fail(callId, "ice_failed")` (or a new `negotiation_failed` reason) on unrecoverable errors. |
 | H5 | `call-coordinator.ts` (`onConnectionState`) | `connectionState === "failed"` immediately ends the call; `"disconnected"` is ignored. No **ICE restart**. | Any Wi-Fi ↔ 4G switch or short packet loss kills the call. | On `disconnected` start a 5–8 s timer; on `failed` the caller does `createOffer({ iceRestart: true })` once or twice before giving up. |
 | H6 | `frontend/src/services/token-store.ts` | Access **and refresh** tokens in `sessionStorage`. | Any XSS steals a 7-day refresh token. | Keep access token in memory only; move refresh token to an `HttpOnly; Secure; SameSite=Strict` cookie scoped to `/api/auth/token/refresh/`. |
-| H7 | `docker-compose.yml`, `backend/Dockerfile` | Hard-coded Postgres password, Postgres/Redis ports published to the host, image runs as root with `config.settings.local`, no migrations step, no healthchecks. Ports also disagree with README (8000/8743 vs 8741/5173). | Not deployable as-is; open DB to the network. | Separate `docker-compose.prod.yml`; secrets from env; don't publish DB/Redis ports; non-root user; `production` settings; `migrate` + `collectstatic` entrypoint; healthchecks; fix README. |
+| H7 | `docker-compose.yml`, `backend/Dockerfile` | Hard-coded Postgres password, Postgres/Redis ports published to the host, image runs as root with `config.settings.local`, no migrations step, no healthchecks. | Not deployable as-is; open DB to the network. | Separate `docker-compose.prod.yml`; secrets from env; don't publish DB/Redis ports; non-root user; `production` settings; `migrate` + `collectstatic` entrypoint; healthchecks; fix README. |
 
 ### 🟠 Medium — correctness & scale
 
@@ -350,7 +350,7 @@ CORS_ALLOW_ALL_ORIGINS = False
 from .base import *  # noqa
 DEBUG = True
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8743", "http://localhost:8743"]
+CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:5173", "http://localhost:5173"]
 ```
 
 Then remove `.env` files and `frontend/dist/` from version control and rotate any secret that was in them.

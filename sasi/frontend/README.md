@@ -11,7 +11,7 @@ Production React client for the Saran Django API. It uses the same auth, directo
 
 ## Local
 
-The API must already be running on port `8741`.
+The API must already be running on port `8000`.
 
 ```bash
 cp frontend/.env.example frontend/.env
@@ -20,7 +20,7 @@ npm install
 npm run dev
 ```
 
-The app is at `http://127.0.0.1:8743`.
+The app is at `http://127.0.0.1:5173`.
 
 `seed_demo` accounts from the backend README work here. Sign in as two people in separate browser sessions (or an incognito window) to place a call.
 

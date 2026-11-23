@@ -9,7 +9,7 @@ os.environ.setdefault("POSTGRES_PASSWORD", "S@r@ns@i07")
 os.environ.setdefault("POSTGRES_HOST", "127.0.0.1")
 os.environ.setdefault("POSTGRES_PORT", "5432")
 os.environ.setdefault("REDIS_URL", "redis://127.0.0.1:6379/0")
-os.environ.setdefault("CORS_ALLOWED_ORIGINS", "http://127.0.0.1:8000,http://localhost:8081")
+os.environ.setdefault("CORS_ALLOWED_ORIGINS", "http://127.0.0.1:5173,http://localhost:5173,http://localhost:8081")
 os.environ["PRESENCE_KEY_PREFIX"] = "Saran:test:presence"
 
 from .base import *  # noqa: E402,F401,F403
