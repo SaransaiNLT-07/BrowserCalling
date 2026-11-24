@@ -24,6 +24,10 @@ class AuthRateThrottle(AnonRateThrottle):
 
 class TokenPairSerializerMixin:
     def validate(self, attrs):
+        # Emails are stored lowercase; match that so "Avery@x.dev" can log in.
+        field = self.username_field
+        if isinstance(attrs.get(field), str):
+            attrs[field] = attrs[field].strip().lower()
         data = super().validate(attrs)
         data["user"] = MeSerializer(self.user).data
         return data

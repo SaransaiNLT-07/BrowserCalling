@@ -1,3 +1,4 @@
+# Local development stack. For production use docker-compose.prod.yml.
 services:
   postgres:
     image: postgres:16
@@ -6,19 +7,20 @@ services:
       POSTGRES_USER: Saran
       POSTGRES_PASSWORD: Saran
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - Saran-postgres:/var/lib/postgresql/data
 
   redis:
     image: redis:7
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
 
   api:
     build: ./backend
     env_file: ./backend/.env
     environment:
+      DJANGO_SETTINGS_MODULE: config.settings.local
       POSTGRES_HOST: postgres
       REDIS_URL: redis://redis:6379/0
       DJANGO_ALLOWED_HOSTS: 127.0.0.1,localhost,api

@@ -15,14 +15,14 @@ def test_register_login_me_and_logout(api, password):
         format="json",
     )
     assert registered.status_code == 201
-    assert registered.data["user"]["email"] == "avery@Saran.dev"
+    assert registered.data["user"]["email"] == "avery@saran.dev"
     assert registered.data["user"]["username"] == "avery"
     assert registered.data["user"]["display_name"] == "Avery Chen"
     assert "access" in registered.data
 
     me = api.get("/api/auth/me/", HTTP_AUTHORIZATION=f"Bearer {registered.data['access']}")
     assert me.status_code == 200
-    assert me.data["email"] == "avery@Saran.dev"
+    assert me.data["email"] == "avery@saran.dev"
 
     logged_in = api.post(
         "/api/auth/token/",

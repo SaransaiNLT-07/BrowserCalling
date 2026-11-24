@@ -1,0 +1,6 @@
+# Automatic HTTPS (Let's Encrypt) for the whole app.
+# DOMAIN comes from backend/.env.production, e.g. call.example.com
+{$DOMAIN} {
+	encode zstd gzip
+	reverse_proxy web:80
+}

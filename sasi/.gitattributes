@@ -1,0 +1,6 @@
+# Shell scripts and container files run on Linux: always check them out with LF.
+*.sh text eol=lf
+Dockerfile text eol=lf
+Caddyfile text eol=lf
+*.conf text eol=lf
+*.env.example text eol=lf
