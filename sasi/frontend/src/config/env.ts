@@ -18,12 +18,12 @@ function list(value: string | undefined): string[] {
 }
 
 function resolveApiUrl(): string {
-  const configured = import.meta.env.VITE_API_URL?.trim();
+  const configured = import.meta.env.API_URL?.trim();
   return apiBase(configured || "/api");
 }
 
 function resolveWsUrl(): string {
-  const configured = import.meta.env.VITE_WS_URL?.trim();
+  const configured = import.meta.env.WS_URL?.trim();
   if (configured) return socketBase(configured);
   if (typeof window === "undefined") return "/ws/signaling/";
   const proto = window.location.protocol === "https:" ? "wss:" : "ws:";
