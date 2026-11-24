@@ -46,3 +46,19 @@ def test_ice_servers_uses_cloudflare_and_caches(api, make_user, settings):
     assert first.data["ice_servers"][0]["username"] == "u"
     assert second.data == first.data
     assert fetch.call_count == 1
+
+
+@pytest.mark.django_db
+def test_cloudflare_failure_falls_back_and_is_cached_briefly(api, make_user, settings):
+    settings.CLOUDFLARE_TURN_KEY_ID = "key"
+    settings.CLOUDFLARE_TURN_API_TOKEN = "token"
+    writes = []
+    fake_redis = mock.Mock(get=lambda k: None, set=lambda k, v, ex: writes.append(ex))
+    with (
+        mock.patch.object(turn, "redis_client", return_value=fake_redis),
+        mock.patch.object(turn, "_fetch_from_cloudflare", side_effect=turn.urllib.error.URLError("down")),
+    ):
+        response = api.get("/api/calls/ice-servers/", **auth(make_user()))
+    assert response.status_code == 200
+    assert response.data["ice_servers"] == [{"urls": "stun:stun.cloudflare.com:3478"}]
+    assert writes == [turn.FAILURE_CACHE_SECONDS]
