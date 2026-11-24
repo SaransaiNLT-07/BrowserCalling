@@ -9,6 +9,7 @@ from apps.calls.models import Call
 from apps.calls.notifications import notify_call_state_sync, notify_calls_sync
 from apps.calls.serializers import CallSerializer, CreateCallSerializer, FailCallSerializer
 from apps.calls.services import CallService
+from apps.calls.turn import ice_servers
 
 
 def raise_service(exc: CallServiceError) -> None:
@@ -96,3 +97,12 @@ class FailCallView(CallActionView):
         serializer = FailCallSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return CallService.fail(call_id, request.user, serializer.validated_data["reason"])
+
+
+class IceServersView(APIView):
+    """Short-lived STUN/TURN servers for RTCPeerConnection."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({"ice_servers": ice_servers()})

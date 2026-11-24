@@ -26,3 +26,7 @@ REST_FRAMEWORK = {
         "auth": "1000/minute",
     },
 }
+
+# Never call Cloudflare from tests; tests patch apps.calls.turn as needed.
+CLOUDFLARE_TURN_KEY_ID = ""
+CLOUDFLARE_TURN_API_TOKEN = ""

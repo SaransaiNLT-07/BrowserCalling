@@ -7,10 +7,12 @@ from apps.calls.views import (
     CancelCallView,
     EndCallView,
     FailCallView,
+    IceServersView,
     RejectCallView,
 )
 
 urlpatterns = [
+    path("ice-servers/", IceServersView.as_view(), name="call-ice-servers"),
     path("", CallListCreateView.as_view(), name="call-list"),
     path("<uuid:call_id>/", CallDetailView.as_view(), name="call-detail"),
     path("<uuid:call_id>/accept/", AcceptCallView.as_view(), name="call-accept"),

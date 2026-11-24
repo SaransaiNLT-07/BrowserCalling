@@ -1,5 +1,5 @@
 import type { ApiClient } from "@/services/api-client";
-import type { Call, CallType, Page } from "@/types/models";
+import type { Call, CallType, IceServer, Page } from "@/types/models";
 
 export class CallApi {
   constructor(private readonly api: ApiClient) {}
@@ -9,6 +9,11 @@ export class CallApi {
       method: "POST",
       body: JSON.stringify({ callee_id: calleeId, call_type: callType }),
     });
+  }
+
+  async iceServers(): Promise<IceServer[]> {
+    const body = await this.api.request<{ ice_servers: IceServer[] }>("/calls/ice-servers/");
+    return body.ice_servers;
   }
 
   list(active = false): Promise<Page<Call>> {

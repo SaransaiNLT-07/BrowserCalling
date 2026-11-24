@@ -137,6 +137,12 @@ PRESENCE_TTL_SECONDS = env.int("PRESENCE_TTL_SECONDS", default=90)
 CALL_RING_TIMEOUT_SECONDS = env.int("CALL_RING_TIMEOUT_SECONDS", default=45)
 CALL_OFFLINE_GRACE_SECONDS = env.int("CALL_OFFLINE_GRACE_SECONDS", default=20)
 
+# WebRTC ICE: Cloudflare Realtime TURN (credentials are generated server-side).
+STUN_URLS = env.list("STUN_URLS", default=["stun:stun.cloudflare.com:3478"])
+CLOUDFLARE_TURN_KEY_ID = env("CLOUDFLARE_TURN_KEY_ID", default="")
+CLOUDFLARE_TURN_API_TOKEN = env("CLOUDFLARE_TURN_API_TOKEN", default="")
+CLOUDFLARE_TURN_TTL_SECONDS = env.int("CLOUDFLARE_TURN_TTL_SECONDS", default=86400)
+
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",

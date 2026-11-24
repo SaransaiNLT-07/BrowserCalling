@@ -10,6 +10,7 @@ import type {
   CallUiState,
   ClientAction,
   IceCandidateInit,
+  IceServer,
   ServerEvent,
   SessionDescription,
 } from "@/types/models";
@@ -297,8 +298,20 @@ export class CallCoordinator {
     return this.mediaTask;
   }
 
+  private async resolveIceServers(): Promise<IceServer[]> {
+    try {
+      const servers = await this.calls.iceServers();
+      if (servers.length > 0) return servers;
+    } catch (error) {
+      log.warn("could not load TURN credentials, using local ICE config", { error });
+    }
+    return iceServers();
+  }
+
   private async openMedia(call: Call, generation: number) {
-    const engine = createRtcEngine(iceServers());
+    const servers = await this.resolveIceServers();
+    if (generation !== this.generation) return;
+    const engine = createRtcEngine(servers);
     try {
       const stream = await engine.getUserMedia(call.call_type === "video");
       if (generation !== this.generation) {
